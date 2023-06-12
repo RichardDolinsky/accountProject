@@ -76,23 +76,7 @@ public class CreateAccountServiceImplementation implements ICreateAccountService
 		return new BankAccount(-1.0, new Client("Non-Exist",-1L), -9L);
 	}
 
-	@Override
-	public void makeTransaction(Boolean cash, Boolean iban, Boolean sameBank,long value, long loggedUserID) {
-		//If transaction was take cash -> in cash dispenser in allow bank
-		if(cash && sameBank && !iban && value>=5 && value >=5 && loggedUserID>0) {
-			//make transaction take money 
-			Double charge = 10.0;
-//			long newCredit = beanTransaction.performCashDispencerInMyBank(charge, 500L, 100);
-//			long newCredit = beanTransaction.performCashDispencerInMyBank();
-//			System.out.println(newCredit + "  new credit");
-			//set new credit as current credit
-		}
-		//If transaction was take cash -> in cash dispenser in not allow bank
-		else if(cash && !sameBank && !iban && value>=5 && value >=5) {
 
-		}
-		
-	}
 
 	@Override
 	public Fees createFee(String nameOfFee, int valueFee) {

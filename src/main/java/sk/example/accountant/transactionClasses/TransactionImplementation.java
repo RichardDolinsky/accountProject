@@ -42,7 +42,7 @@ public double getCharge() {
 	public void takeCashDispencerInMyBank(int value, long iban) {
 		BankAccount loaded = repositorySrvice.findByIban(iban);
 		//If credit is remains and going to take credit, is more or equal 5 Euro, is possible for make transaction
-		if(loaded.getAccountBalance() >=5 && value >=5) {
+		if(loaded.getAccountBalance() >=5 && value >=5 && loaded.getAccountBalance()>=value) {
 			System.out.println(" previous: "+loaded.getAccountBalance());
 			final String reason = "Withdraw_my_bank";
 			
@@ -53,6 +53,7 @@ public double getCharge() {
 					int correctFee =fees.getFixedFees();
 					System.err.println(value + "  money for minus, charge:"+correctFee );
 					loaded.setAccountBalance((loaded.getAccountBalance()-value)-correctFee);
+					
 					System.out.println(" NOW:> "+loaded.getAccountBalance());
 					personRepositoryAccounts.save(loaded);
 					break;

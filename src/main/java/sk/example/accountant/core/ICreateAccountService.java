@@ -11,6 +11,6 @@ public interface ICreateAccountService {
 	public Client findByPersonId(long id);
 	public BankAccount findByIban(long iban);
 	public Fees createFee(String nameOfFee,int valueFee);
-	public void makeTransaction(Boolean cash,Boolean iban,Boolean sameBank,long value,long loggedUserID);
+	
 
 }

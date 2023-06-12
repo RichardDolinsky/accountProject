@@ -17,7 +17,7 @@ public class TransactionResponse {
 	        this.receiverAccountBalance = receiverAccountBalance;
 	        this.charge = charge;
 	    }
-
+	    
 
 		public String getSender() {
 			return sender;

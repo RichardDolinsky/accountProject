@@ -50,20 +50,22 @@ public class BankAccountController {
 	BankAccount getBankAccount(@PathVariable long id){
 		return serviceMethods.findByIban(id);
 	}
-	@PutMapping("/make/{iban}")
-	void makeTransaction(@PathVariable long iban,@PathVariable int value){
+	@PutMapping("/take/{value}/{iban}")
+	public BankAccount makeTransaction(@PathVariable long iban,@PathVariable int value){
 		transactionsService.takeCashDispencerInMyBank(value, iban);
+		return serviceMethods.findByIban(iban);
 	}
 	
 	@PutMapping("/takemoney/{value}/{iban}")
-	void makeTransactionOtherBank(@PathVariable long iban,@PathVariable int value){
+	public BankAccount makeTransactionOtherBank(@PathVariable long iban,@PathVariable int value){
 		transactionsService.takeCashDispencerInOtherBank(value, iban);
-//		return serviceMethods.findByIban(id);
+		return serviceMethods.findByIban(iban);
 	}
 	
 	@PutMapping("/invoice/{iban}")
-	void performeInvoice(@PathVariable long iban){
+	public BankAccount performeInvoice(@PathVariable long iban){
 		transactionsService.makeInvoicePayment( iban);
+		 return serviceMethods.findByIban(iban);
 	}
 
 	
