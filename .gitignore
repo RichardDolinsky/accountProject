@@ -3,7 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-!**/src/test/**/target/springAccountant-0.0.1-SNAPSHOT.jar
+!**/src/main/**/target/springAccountant-0.0.1-SNAPSHOT.jar
 
 ### STS ###
 .apt_generated
