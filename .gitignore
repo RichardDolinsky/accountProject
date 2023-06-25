@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 !**/src/main/**/target/springAccountant-0.0.1-SNAPSHOT.jar
+!target/springAccountant-0.0.1-SNAPSHOT.jar
 
 ### STS ###
 .apt_generated
