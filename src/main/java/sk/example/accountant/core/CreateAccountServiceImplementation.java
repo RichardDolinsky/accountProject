@@ -60,7 +60,7 @@ public class CreateAccountServiceImplementation implements ICreateAccountService
 			return potencialClient.get();
 		}
 		else {
-			return new Client("Non-Exist",-1L);
+			return null;
 		}
 	}
 
@@ -73,7 +73,8 @@ public class CreateAccountServiceImplementation implements ICreateAccountService
 				return account;
 			}
 		}
-		return new BankAccount(-1.0, new Client("Non-Exist",-1L), -9L);
+//		return new BankAccount(-1.0, new Client("Non-Exist",-1L), -9L);
+		return null;
 	}
 
 

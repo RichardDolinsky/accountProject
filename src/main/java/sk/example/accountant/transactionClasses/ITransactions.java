@@ -3,7 +3,7 @@ package sk.example.accountant.transactionClasses;
 import sk.example.accountant.core.BankAccount;
 
 public interface ITransactions {
-	void takeCashDispencerInMyBank(int value, long iban);
+	boolean takeCashDispencerInMyBank(int value, long iban);
 	
 	void takeCashDispencerInOtherBank(int value, long iban);
 	

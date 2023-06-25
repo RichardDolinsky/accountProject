@@ -39,10 +39,10 @@ public double getCharge() {
 	}
 	
 	@Override
-	public void takeCashDispencerInMyBank(int value, long iban) {
+	public boolean takeCashDispencerInMyBank(int value, long iban) {
 		BankAccount loaded = repositorySrvice.findByIban(iban);
 		//If credit is remains and going to take credit, is more or equal 5 Euro, is possible for make transaction
-		if(loaded.getAccountBalance() >=5 && value >=5 && loaded.getAccountBalance()>=value) {
+		if(loaded !=null && loaded.getAccountBalance() >=5 && value >=5 && loaded.getAccountBalance()>=value) {
 			System.out.println(" previous: "+loaded.getAccountBalance());
 			final String reason = "Withdraw_my_bank";
 			
@@ -61,10 +61,12 @@ public double getCharge() {
 				else {	
 				}
 			}
+			return true;
 			
 		}
 		else {
-			System.out.println("Cannot perform transaction, non existing IBAN or bad credit :" +loaded.getAccountBalance());
+			System.out.println("Cannot perform transaction, non existing IBAN or bad credit to withdraw : " +value);
+			return false;
 		}
 	}
 
