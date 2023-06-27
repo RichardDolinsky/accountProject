@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Account Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+       function goBack() {
+    window.location.href = "/";
+}
+
+        function fetchAccounts() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/all-accounts", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var accounts = JSON.parse(xhr.responseText);
+                    var tableBody = document.getElementById("accountTableBody");
+                    tableBody.innerHTML = ""; // Clear existing table rows
+                    for (var i = 0; i < accounts.length; i++) {
+                        var account = accounts[i];
+                        var row = "<tr><td>" + account.client.name + "</td><td>" + account.iban + "</td><td>" + account.accountBalance + "</td></tr>";
+                        tableBody.innerHTML += row;
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function fetchClients() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/all-clients", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var clients = JSON.parse(xhr.responseText);
+                    var tableBody = document.getElementById("clientTableBody");
+                    tableBody.innerHTML = ""; // Clear existing table rows
+                    for (var i = 0; i < clients.length; i++) {
+                        var client = clients[i];
+                        var row = "<tr><td>" + client.personId + "</td><td>" + client.name + "</td><td>" + "</td></tr>";
+                        tableBody.innerHTML += row;
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+   function searchAccount() {
+            var iban = document.getElementById("iban").value;
+            var url = "/api/iban/" + iban;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    displayAccount(response);
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+
+        function displayAccount(account) {
+            var ibanCell = document.getElementById("ibanCell");
+            var nameCell = document.getElementById("nameCell");
+            var personIdCell = document.getElementById("personIdCell");
+            var accountBalanceCell = document.getElementById("accountBalanceCell");
+
+            ibanCell.innerText = account.iban;
+            nameCell.innerText = account.client.name;
+            personIdCell.innerText = account.client.personId;
+            accountBalanceCell.innerText = account.accountBalance;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bank Account Services</h1>
+        <button onclick="goBack()">Go Back</button>
+        <br><br>
+        <button onclick="fetchAccounts()">Fetch Accounts</button>
+        <br><br>
+        
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Owner name</th>
+                    <th>IBAN</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody id="accountTableBody"></tbody>
+        </table>
+        
+        
+        <br><br>
+        <button onclick="fetchClients()">Fetch Clients</button>
+        <br><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Person ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody id="clientTableBody"></tbody>
+        </table>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody id="transactionTableBody"></tbody>
+        </table>
+        
+         <form>
+        <label for="iban">Enter IBAN:</label>
+        <input type="text" id="iban" name="iban">
+        <button type="button" onclick="searchAccount()">Search</button>
+    </form>
+
+    <table id="accountTable">
+        <thead>
+            <tr>
+                <th>IBAN</th>
+                <th>Client Name</th>
+                <th>Person ID</th>
+                <th>Account Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="accountRow">
+                <td id="ibanCell"></td>
+                <td id="nameCell"></td>
+                <td id="personIdCell"></td>
+                <td id="accountBalanceCell"></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    
+</body>
+</html>

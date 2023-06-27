@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,7 @@ import sk.example.accountant.transactionClasses.ITransactions;
 
 @RestController
 @RequestMapping("/api") 
+//@RequestMapping(value = {"/api", "/api/"})
 public class BankAccountController {
 	@Autowired
 	ICreateAccountService serviceMethods;
@@ -50,6 +52,7 @@ public class BankAccountController {
 	Client getClientById(@PathVariable long id){
 		return serviceMethods.findByPersonId(id);
 	}
+
 	
 	@GetMapping("/clientv2/{id}")
 	ResponseEntity<?> getClientByIdv2(@PathVariable long id){
