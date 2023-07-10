@@ -3,6 +3,32 @@
 <head>
     <title>Bank Account Services</title>
     <style>
+    
+    <div class="sidebar">
+    <ul>
+        <li onclick="fetchClients()">Fetch Clients</li>
+    </ul>
+</div>
+
+.sidebar {
+    width: 200px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.sidebar li:hover {
+    color: #007bff;
+}
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -115,6 +141,28 @@
             xhttp.open("GET", url, true);
             xhttp.send();
         }
+        
+        
+         function exchangeCurrency() {
+            var value = document.getElementById("value").value;
+            var abbreviation = document.getElementById("abbreviation").value;
+            var url = "/api/currency/" + value + "/" + abbreviation;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    displayExchangeResult(response);
+                }
+            };
+            xhttp.open("PUT", url, true);
+            xhttp.send();
+        }
+        
+        function displayExchangeResult(result) {
+            var exchangeResultCell = document.getElementById("exchangeResultCell");
+            var exchangeResult = result.exchangedValue;
+            exchangeResultCell.innerText = exchangeResult;
+        }
 
         function displayAccount(account) {
             var ibanCell = document.getElementById("ibanCell");
@@ -198,6 +246,20 @@
             </tr>
         </tbody>
     </table>
+    
+     <h2>Exchange Currency</h2>
+        <form>
+            <label for="value">Value:</label>
+            <input type="text" id="value" name="value">
+            <br><br>
+            <label for="abbreviation">Abbreviation:</label>
+            <input type="text" id="abbreviation" name="abbreviation">
+            <br><br>
+            <button type="button" onclick="exchangeCurrency()">Exchange</button>
+        </form>
+        
+        <h3>Exchange Result:</h3>
+        <p id="exchangeResultCell"></p>
     </div>
     
 </body>
